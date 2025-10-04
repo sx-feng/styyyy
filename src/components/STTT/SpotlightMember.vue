@@ -150,7 +150,7 @@ onBeforeUnmount(() => {
   width: 80%;                    
   margin-top: 40px;
   z-index: 2;
-  margin-right: 10%;
+
 }
 
 .top-btn {
@@ -196,8 +196,7 @@ onBeforeUnmount(() => {
   padding: 20px;            
   margin-top: 20px;      
     padding-bottom: 20px;  
-  width: 86%;               
-  margin-right: 10%;
+  width: 90%;               
   height: 55%;
   color: #fff;         
   z-index: 22;     

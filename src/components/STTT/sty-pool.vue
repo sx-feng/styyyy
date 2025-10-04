@@ -544,23 +544,6 @@ onMounted(() => {
   color: #666;
 }
 
-/* 弹窗内容整体 */
-.sell-box {
-  padding: 24px;
-  border-radius: 16px;
-  background: #fff;
-  width: 80%;
-  max-width: 360px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-  animation: fadeInUp 0.25s ease-out;
-}
-
-/* 顶部单价 */
-.sell-header {
-  font-size: 14px;
-  margin-bottom: 16px;
-  color: #666;
-}
 
 .price-value {
   font-weight: bold;

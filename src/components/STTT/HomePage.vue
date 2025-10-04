@@ -187,6 +187,7 @@ const amount = ref('') // 输入框金额
 ///////////全局回调
 onMounted(() => {
     updateGuidePrice()
+    updateGuidePrice()
   CallbackCenter.register('financeUpdate', (info) => {
     console.log("Finance 页面收到登录成功回调", info)
     // 在这里执行余额刷新逻辑
@@ -194,7 +195,6 @@ onMounted(() => {
              updateGuidePrice()
   });
   refresh();//封装刷新的方法
-      updateGuidePrice()
 })
 /////////////////
 
@@ -290,11 +290,24 @@ function onPayClose(){
 
 ////////////===========================
 // 指导价数据
-const styGuidePrice = ref(0.1)
-async function updateGuidePrice (){
-  let res= await getSTYAIPrice();
-  if(res?.data?.data?.price){
-  styGuidePrice.value = res.data.data.price
+const styGuidePrice = ref(0.5)
+const priceTrend = ref(0.35)
+const priceHistory = ref([0.45, 0.48, 0.52, 0.50, 0.55])
+const updateGuidePrice = () => {
+  const today = new Date().getDay()
+  const tradingDays = [1, 2, 3, 4, 5] 
+  
+  if (tradingDays.includes(today)) {
+    const lastPrice = priceHistory.value[priceHistory.value.length - 1]
+    const change = (Math.random() * 0.1 - 0.05).toFixed(4)
+    const newPrice = Math.max(0.01, parseFloat((lastPrice + change).toFixed(4)))
+    
+    priceHistory.value.push(newPrice)
+    if (priceHistory.value.length > 5) priceHistory.value.shift()
+    
+    const prevPrice = priceHistory.value[priceHistory.value.length - 2] || newPrice
+    priceTrend.value = ((newPrice - prevPrice) / prevPrice * 100).toFixed(2)
+    styGuidePrice.value = newPrice
   }
 }
 
@@ -411,6 +424,7 @@ async function updateGuidePrice (){
   flex-direction: column;
   gap: 20px;
   padding-left: 5%;
+  padding-left: 5%;
   border: 1px #b9b9b9 solid;
   border-radius: 10px;
   /* 圆角 */
@@ -464,10 +478,12 @@ async function updateGuidePrice (){
   display: flex;
   background: #fff;
   width: 72%;
+  width: 72%;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 12px;
   border: 1px solid #ddd;
+  
   
 }
 
@@ -490,6 +506,7 @@ async function updateGuidePrice (){
 .btn-confirm {
   width: 50%;
   background: #f6c244;
+  margin-right: 27%;
   margin-right: 27%;
   border: none;
   padding: 10px 0;

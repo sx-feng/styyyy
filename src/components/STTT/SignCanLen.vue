@@ -250,7 +250,7 @@ onMounted(() => {
 
 <style scoped>
 .sign-card {
-  width: 94%;
+  
   background: #0f0f0f;
   color: #eee;
   border: 1px solid rgba(255, 255, 255, .1);
