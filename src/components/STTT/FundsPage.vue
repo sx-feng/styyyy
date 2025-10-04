@@ -239,7 +239,7 @@ onBeforeUnmount(() => {
 })
 </script>
 
-<style scoped>
+<style >
 .page-root{
   display: block;
 }
