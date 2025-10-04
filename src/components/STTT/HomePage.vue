@@ -424,7 +424,7 @@ const updateGuidePrice = () => {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+  padding-left: 5%;
   border: 1px #b9b9b9 solid;
   border-radius: 10px;
   /* 圆角 */
@@ -453,7 +453,7 @@ const updateGuidePrice = () => {
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-  width: 80%;
+  width: 90%;
   margin-left: 4%;
   background: #e0dfdf;
 }
@@ -477,11 +477,12 @@ const updateGuidePrice = () => {
 .input-row {
   display: flex;
   background: #fff;
-  width: 82%;
+  width: 72%;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 12px;
   border: 1px solid #ddd;
+  
 }
 
 .input-text {
@@ -503,7 +504,7 @@ const updateGuidePrice = () => {
 .btn-confirm {
   width: 50%;
   background: #f6c244;
-  margin-right: 16%;
+  margin-right: 27%;
   border: none;
   padding: 10px 0;
   border-radius: 20px;
