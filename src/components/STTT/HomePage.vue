@@ -38,10 +38,7 @@
               <div class="exchange-header">
                  <div class="guide-price-section">
       <span class="flash-label">{{ $t('exchange.flash') }}：</span>
-      <span class="price-tag">{{ styGuidePrice }} USD</span>
-      <span :class="['trend-indicator', priceTrend >= 0 ? 'up' : 'down']">
-        {{ priceTrend >= 0 ? '+' : '' }}{{ priceTrend }}%
-      </span>
+      <span class="price-tag">{{ styGuidePrice }}USDT</span>
     </div>
                 <div class="balance">{{ $t('exchange.balance') }}：{{ styaiBalance }}</div>
               </div>
@@ -103,7 +100,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import enUS from 'element-plus/dist/locale/en.mjs'
 import { inject } from 'vue'
 import { useRouter } from 'vue-router'
-import {  userGet,userMachineRecordList } from "@/utils/api"
+import {  userGet,userMachineRecordList ,getSTYAIPrice} from "@/utils/api"
 
 import WalletTP from '@/utils/walletTP.js'
 import { Exchange, SubmitOrder ,teamMembersAll} from '@/utils/api.js'
@@ -189,13 +186,15 @@ const amount = ref('') // 输入框金额
 
 ///////////全局回调
 onMounted(() => {
-    updateGuidePrice()
+
   CallbackCenter.register('financeUpdate', (info) => {
     console.log("Finance 页面收到登录成功回调", info)
     // 在这里执行余额刷新逻辑
        refresh()
+           updateGuidePrice()
   });
   refresh();//封装刷新的方法
+      updateGuidePrice()
 })
 /////////////////
 
@@ -291,24 +290,11 @@ function onPayClose(){
 
 ////////////===========================
 // 指导价数据
-const styGuidePrice = ref(0.5)
-const priceTrend = ref(0.35)
-const priceHistory = ref([0.45, 0.48, 0.52, 0.50, 0.55])
-const updateGuidePrice = () => {
-  const today = new Date().getDay()
-  const tradingDays = [1, 2, 3, 4, 5] 
-  
-  if (tradingDays.includes(today)) {
-    const lastPrice = priceHistory.value[priceHistory.value.length - 1]
-    const change = (Math.random() * 0.1 - 0.05).toFixed(4)
-    const newPrice = Math.max(0.01, parseFloat((lastPrice + change).toFixed(4)))
-    
-    priceHistory.value.push(newPrice)
-    if (priceHistory.value.length > 5) priceHistory.value.shift()
-    
-    const prevPrice = priceHistory.value[priceHistory.value.length - 2] || newPrice
-    priceTrend.value = ((newPrice - prevPrice) / prevPrice * 100).toFixed(2)
-    styGuidePrice.value = newPrice
+const styGuidePrice = ref(0.1)
+async function updateGuidePrice (){
+  let res= await getSTYAIPrice();
+  if(res?.data?.data?.price){
+  styGuidePrice.value = res.data.data.price
   }
 }
 

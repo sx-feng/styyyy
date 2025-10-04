@@ -8,6 +8,7 @@ export const userRegister  = (data) => request(1, '/api/user/register', data)
 export const userDelete    = (data) => request(1, '/api/user/delete', data)
 export const userUpdate    = (data) => request(1, '/api/user/update', data)
 export const userGet = (data) => request(1, '/api/user/get', data)
+export const getSTYAIPrice = (data) => request(1, '/api/sty-exchange/price', null)
 
 export const userList      = (data) => request(1, '/api/user/list', data)
 export const userUpdatePassword = (data) => request(1, '/api/user/update/paswad', data)
